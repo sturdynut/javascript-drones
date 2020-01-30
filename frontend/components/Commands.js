@@ -4,13 +4,13 @@ import socket from '../socket';
 const CommandGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1.25fr 1fr;
-  grid-template-rows: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr) auto repeat(2, 1fr);
   border: 1px solid black;
   grid-gap: 3px;
   button {
     text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.05);
     border: 0;
-    background: #fe2c70;
+    background: #D6A2E8;
     border: 4px solid transparent;
     color: white;
     font-size: 1rem;
@@ -20,26 +20,26 @@ const CommandGrid = styled.div`
     }
     &:focus {
       outline: 0;
-      border-color: #ffc600;
+      border-color: #EAB543;
     }
     &.takeoff {
-      background: #41c7ff;
+      background: #1B9CFC;
     }
     &.land {
-      background: #00ff00;
+      background: #B33771;
     }
     &.emergency {
-      background: orange;
+      background: #FC427B;
       text-transform: uppercase;
-      color: black;
+      color: #fff;
     }
     &.rotate {
-      background: #00fff9;
-      color: black;
+      background: #58B19F;
+      color: #fff;
     }
     &.height {
-      background: #fff;
-      color: black;
+      background: #58B19F;
+      color: #fff;
     }
     span.symbol {
       display: block;
@@ -57,7 +57,7 @@ const CommandGrid = styled.div`
   }
   h2 {
     grid-column: 1 / -1;
-    background: #ffc600;
+    background: #EAB543;
     margin: 0;
     font-size: 1rem;
     text-align: center;

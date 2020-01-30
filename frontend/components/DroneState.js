@@ -23,13 +23,20 @@ function useSocket() {
 }
 
 const DroneStateStyles = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 4fr;
-  grid-gap: 5px;
-  .status {
-    grid-column: 1 / -1;
-    text-align: center;
-  }
+  display: flex;
+  flex-direction: column;
+`;
+
+const Header = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding-right: 1rem;
+`;
+
+const Status = styled.p`
+  text-align: right;
 `;
 
 const DroneState = () => {
@@ -37,8 +44,10 @@ const DroneState = () => {
   const droneState = useDroneState([]);
   return (
     <DroneStateStyles>
-      <p className="status">Status: {status}</p>
-      <Battery battery={droneState.bat} />
+      <Header>
+        <Status>Status: {status}</Status>
+        <Battery battery={droneState.bat} />
+      </Header>
       <Tilt
         pitch={droneState.pitch}
         roll={droneState.roll}
