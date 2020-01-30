@@ -18,6 +18,7 @@ export default class MyDocument extends Document {
         <body>
           <Main />
           <NextScript />
+          <script src="https://kit.fontawesome.com/cc268a3184.js" crossorigin="anonymous"></script>
         </body>
       </html>
     );

@@ -36,8 +36,12 @@ const Header = styled.div`
 `;
 
 const Status = styled.p`
+  color: #fff;
   text-align: right;
 `;
+
+// 1ft = 30.48cm
+const cmToFt = (measurement = 0) => (measurement / 30.48).toFixed(1);
 
 const DroneState = () => {
   const status = useSocket();
@@ -52,7 +56,7 @@ const DroneState = () => {
         pitch={droneState.pitch}
         roll={droneState.roll}
         yaw={droneState.yaw}
-        height={droneState.h}
+        height={cmToFt(droneState.h)}
       />
     </DroneStateStyles>
   );

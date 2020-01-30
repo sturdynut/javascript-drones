@@ -2,13 +2,13 @@ import styled from 'styled-components';
 
 const BatteryStyles = styled.div`
   width: 100%;
-  --color: ${props => (props.level > 20 ? '#1af21a' : '#bb0707')};
+  --color: ${props => (props.level > 20 ? '#2ecc71' : '#c0392b')};
   border: 2px solid black;
   border-radius: 5px;
   overflow: hidden;
   display: flex;
   flex-direction: column-reverse;
-  // box-shadow: 0 0 10px var(--color);
+  box-shadow: 0 0 10px var(--color);
   background: #eee;
   max-width: 300px;
 

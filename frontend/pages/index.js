@@ -5,12 +5,15 @@ import styled, { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
   body {
-    background: white;
     font-family: 'Operator Mono', monospace;
     font-weight: 900;
     font-size: 1rem;
-    background: #2C3A47;
-    color: white;
+    background: #FFF;
+    background-image: url('/static/bg-sky-moon.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top center;
+    color: #000;
     margin: 0;
     padding: 0;
   }
@@ -27,7 +30,7 @@ const PageStyles = styled.div`
 
 const PageContent = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: no-wrap;
   height: 100%;
 
@@ -40,8 +43,8 @@ const IndexPage = () => (
   <PageStyles>
     <GlobalStyle />
     <PageContent>
-      <Commands />
       <DroneState />
+      <Commands />
     </PageContent>
   </PageStyles>
 );

@@ -6,6 +6,7 @@ const TiltWrap = styled.div`
   text-align: center;
   flex: 1;
   display: grid;
+  color: #FFF;
   align-items: center;
   justify-content: center;
   overflow: hidden;
@@ -32,7 +33,7 @@ const TiltStyles = styled.div`
   background-position: center;
   height: 340px;
   transition: all 0.2s;
-  color: white;
+  color: #FFF;
   transform: rotateX(${props => props.pitch}deg)
     rotate(${props => props.yaw * -1}deg)
     rotateY(${props => props.roll * -1}deg);
@@ -46,7 +47,7 @@ const Tilt = ({ pitch, roll, yaw, height }) => (
     <span><label>Pitch:</label>{pitch}</span>
     <span><label>Roll:</label>{roll}</span>
     <span><label>Yaw:</label>{yaw}</span>
-    <span><label>Height:</label>{height / 100}M</span>
+    <span><label>Height:</label>{height}ft</span>
   </TiltWrap>
 );
 

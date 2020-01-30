@@ -3,42 +3,99 @@ import socket from '../socket';
 
 const CommandGrid = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1.25fr 1fr;
-  grid-template-rows: repeat(3, 1fr) auto repeat(2, 1fr);
-  border: 1px solid black;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto;
+  background-color: #000;
+  border-top: 3px solid #000;
   grid-gap: 3px;
+  max-height: 300px;
+`;
+
+const Init = styled.div`
+  display: grid;
+  grid-gap: 3px;
+  grid-template-columns: 1fr 1fr;
+
   button {
     text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.05);
     border: 0;
-    background: #D6A2E8;
     border: 4px solid transparent;
-    color: white;
+    color: #fff;
     font-size: 1rem;
     position: relative;
-    &:active {
-      top: 2px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    i {
+      padding-bottom: 0.5rem;
+      font-size: 2rem;
     }
+
     &:focus {
       outline: 0;
       border-color: #EAB543;
     }
     &.takeoff {
-      background: #1B9CFC;
+      background: #2ecc71;
     }
     &.land {
-      background: #B33771;
+      background: #e67e22;
     }
     &.emergency {
-      background: #FC427B;
+      background: #e74c3c;
       text-transform: uppercase;
+    }
+
+    &:last-child {
+      grid-column: span 2;
+    }
+  }
+`;
+
+const Main = styled.div`
+  display: grid;
+  grid-gap: 3px;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+
+  button {
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.05);
+    border: 0;
+    background: #3498db;
+    border: 4px solid transparent;
+    color: white;
+    font-size: 1rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    i {
+      padding-bottom: 0.5rem;
+      font-size: 2rem;
+    }
+
+    &:focus {
+      outline: 0;
+      border-color: #EAB543;
+    }
+    &.drone {
+      background: transparent;
       color: #fff;
     }
     &.rotate {
-      background: #58B19F;
+      background: #2980b9;
       color: #fff;
     }
     &.height {
-      background: #58B19F;
+      background: #2980b9;
+      color: #fff;
+    }
+    &.trick {
+      background: #9b59b6;
       color: #fff;
     }
     span.symbol {
@@ -47,22 +104,36 @@ const CommandGrid = styled.div`
       font-weight: 400;
     }
   }
-  .center {
-    display: grid;
-    grid-gap: 3px;
-    grid-template-columns: 1fr 1fr;
-    button:last-child {
-      grid-column: span 2;
-    }
-  }
-  h2 {
-    grid-column: 1 / -1;
-    background: #EAB543;
-    margin: 0;
+`;
+
+const Tricks = styled.div`
+  display: grid;
+  grid-gap: 3px;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+
+  button {
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.05);
+    border: 0;
+    background: #9b59b6;
+    border: 4px solid transparent;
+    color: #fff;
     font-size: 1rem;
-    text-align: center;
-    padding: 0.5rem;
-    color: black;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    i {
+      padding-bottom: 0.5rem;
+      font-size: 2rem;
+    }
+
+    &:focus {
+      outline: 0;
+      border-color: #EAB543;
+    }
   }
 `;
 
@@ -76,51 +147,84 @@ function sendCommand(command) {
 const amount = 100;
 const Commands = () => (
   <CommandGrid>
-    <button className="rotate" onClick={sendCommand('ccw 90')}>
-      <span className="symbol">⟲</span> 90°
-    </button>
-    <button onClick={sendCommand(`forward ${amount}`)}>
-      <span className="symbol">↑</span> forward {amount}cm
-    </button>
-    <button className="rotate" onClick={sendCommand('cw 15')}>
-      <span className="symbol">⟳</span> 15°
-    </button>
-    <button onClick={sendCommand(`left ${amount}`)}>
-      <span className="symbol">←</span> left {amount}cm
-    </button>
-    <div className="center">
+    <Init>
       <button className="takeoff" onClick={sendCommand('takeoff')}>
+        <i class="fas fa-rocket"></i>
         Take Off
       </button>
       <button className="land" onClick={sendCommand('land')}>
+        <i class="fas fa-plane-arrival"></i>
         Land
       </button>
       <button className="emergency" onClick={sendCommand('emergency')}>
-        !! emergency !!
+        <i class="fas fa-skull-crossbones"></i>
+        Emergency
       </button>
-    </div>
-    <button onClick={sendCommand(`right ${amount}`)}>
-      <span className="symbol">→</span>
-      right {amount}cm
-    </button>
-    <button className="height" onClick={sendCommand(`up ${amount}`)}>
-      <span className="symbol">⤒</span> {amount}cm
-    </button>
-    <button onClick={sendCommand(`back ${amount}`)}>
-      <span className="symbol">↓</span> back {amount}cm
-    </button>
-    <button className="height" onClick={sendCommand(`down ${amount}`)}>
-      <span className="symbol">⤓</span> {amount}cm
-    </button>
-    <h2>Fancy Pants</h2>
-    <button onClick={sendCommand('flip l')}>Flip Left</button>
-    <button onClick={sendCommand('flip r')}>Flip Right</button>
-    <button onClick={sendCommand('flip b')}>Flip Back</button>
-    <button onClick={sendCommand('flip f')}>Flip Forward</button>
-    <button onClick={sendCommand('go 25 25 25 25')}>Go 25 25 25 25</button>
-    <button onClick={sendCommand('curve 100 100 100 150 250 350 50')}>
-      Curve!
-    </button>
+    </Init>
+    <Main>
+      <button className="rotate" onClick={sendCommand('ccw 90')}>
+        <i class="fas fa-undo-alt"></i>
+        90°
+      </button>
+      <button onClick={sendCommand(`forward ${amount}`)}>
+        <i class="fas fa-long-arrow-alt-up"></i>
+        forward {amount}cm
+      </button>
+      <button className="rotate" onClick={sendCommand('cw 15')}>
+        <i class="fas fa-redo-alt"></i>
+        15°
+      </button>
+      <button onClick={sendCommand(`left ${amount}`)}>
+        <i class="fas fa-long-arrow-alt-left"></i>
+        left {amount}cm
+      </button>
+      <button className="drone" onClick={() => null}>
+        <i class="fas fa-gamepad"></i>
+        DRONE CONTROLS
+      </button>
+      <button onClick={sendCommand(`right ${amount}`)}>
+        <i class="fas fa-long-arrow-alt-right"></i>
+        right {amount}cm
+      </button>
+      <button className="height" onClick={sendCommand(`up ${amount}`)}>
+        <i class="fas fa-caret-square-up"></i>
+        {amount}cm
+      </button>
+      <button onClick={sendCommand(`back ${amount}`)}>
+        <i class="fas fa-long-arrow-alt-down"></i>
+        back {amount}cm
+      </button>
+      <button className="height" onClick={sendCommand(`down ${amount}`)}>
+        <i class="fas fa-caret-square-down"></i>
+        {amount}cm
+      </button>
+    </Main>
+    <Tricks>
+      <button onClick={sendCommand('flip l')}>
+        <i class="fas fa-fighter-jet"></i>
+        Flip Left
+      </button>
+      <button onClick={sendCommand('flip r')}>
+        <i class="fas fa-fighter-jet"></i>
+        Flip Right
+      </button>
+      <button onClick={sendCommand('flip b')}>
+        <i class="fas fa-fighter-jet"></i>
+        Flip Back
+      </button>
+      <button onClick={sendCommand('flip f')}>
+        <i class="fas fa-fighter-jet"></i>
+        Flip Forward
+      </button>
+      <button onClick={sendCommand('go 25 25 25 25')}>
+        <i class="fas fa-fighter-jet"></i>
+        Go 25 25 25 25
+      </button>
+      <button onClick={sendCommand('curve 100 100 100 150 250 350 50')}>
+        <i class="fas fa-fighter-jet"></i>
+        Curve!
+      </button>
+    </Tricks>
   </CommandGrid>
 );
 
